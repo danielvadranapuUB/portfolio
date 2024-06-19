@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/tst-portfolio/static/css/main.4d95f049.css",
+    "main.js": "/tst-portfolio/static/js/main.69a8f661.js",
+    "static/media/avatar.jpeg": "/tst-portfolio/static/media/avatar.f8bac091376314cd13fc.jpeg",
+    "index.html": "/tst-portfolio/index.html",
+    "main.4d95f049.css.map": "/tst-portfolio/static/css/main.4d95f049.css.map",
+    "main.69a8f661.js.map": "/tst-portfolio/static/js/main.69a8f661.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4d95f049.css",
+    "static/js/main.69a8f661.js"
+  ]
+}
