@@ -34,7 +34,7 @@ export default function Skills() {
     },
   ];
   return (
-    <div id="skills">
+    <section id="skills">
       <p className="section__text__p1">What I Do</p>
       <h1 className="title">Skills</h1>
 
@@ -57,7 +57,7 @@ export default function Skills() {
           <SkillCard skill={skill} />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

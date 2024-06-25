@@ -28,36 +28,34 @@ export default function Navbar() {
       <nav id="hamburger-nav">
         <div className="logo">Daniel Vadranapu</div>
         <div className="hamburger-menu">
-          <div className="hamburger-icon" onClick={() => {}}>
+          <div
+            className="hamburger-icon"
+            onClick={() => {
+              const menu = document.querySelector(".menu-links");
+              const icon = document.querySelector(".hamburger-icon");
+              menu.classList.toggle("open");
+              icon.classList.toggle("open");
+            }}
+          >
             <span></span>
             <span></span>
             <span></span>
           </div>
           <div className="menu-links">
             <li>
-              <a href="#about" onClick={() => {}}>
-                About
-              </a>
+              <a href="#about">About</a>
             </li>
             <li>
-              <a href="#experience" onClick={() => {}}>
-                Experience
-              </a>
+              <a href="#experience">Experience</a>
             </li>
             <li>
-              <a href="#projects" onClick={() => {}}>
-                Projects
-              </a>
+              <a href="#projects">Projects</a>
             </li>
             <li>
-              <a href="#skills" onClick={() => {}}>
-                Skills
-              </a>
+              <a href="#skills">Skills</a>
             </li>
             <li>
-              <a href="#contact" onClick={() => {}}>
-                Contact
-              </a>
+              <a href="#contact">Contact</a>
             </li>
           </div>
         </div>
