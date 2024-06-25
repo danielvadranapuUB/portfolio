@@ -39,7 +39,7 @@ export default function Contact() {
             className="icon contact-icon"
           />
           <p>
-            <a href="https://www.linkedin.com"> +1-716-3484581</a>
+            <a href="tel:+1 716-3484581"> +1 716-3484581</a>
           </p>
         </div>
         <div className="contact-info-container">
