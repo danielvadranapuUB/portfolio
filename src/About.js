@@ -21,7 +21,7 @@ export default function About() {
             </a>
           </button>
           <button className="btn btn-color-1" onClick={() => {}}>
-            Contact Info
+            <a href="#contact">Contact Info</a>
           </button>
         </div>
         <div id="socials-container">
