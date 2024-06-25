@@ -38,12 +38,6 @@ export default function Skills() {
       <p className="section__text__p1">What I Do</p>
       <h1 className="title">Skills</h1>
 
-      <p className="section__text__p1">Programming Languages</p>
-      <div className="skills-container">
-        {languages.map((skill) => (
-          <SkillCard skill={skill} />
-        ))}
-      </div>
       <p className="section__text__p1">Libraries</p>
       <div className="skills-container">
         {libraries.map((skill) => (
@@ -53,6 +47,13 @@ export default function Skills() {
       <p className="section__text__p1">Tools/Frameworks</p>
       <div className="skills-container">
         {tools.map((skill) => (
+          <SkillCard skill={skill} />
+        ))}
+      </div>
+
+      <p className="section__text__p1">Programming Languages</p>
+      <div className="skills-container">
+        {languages.map((skill) => (
           <SkillCard skill={skill} />
         ))}
       </div>

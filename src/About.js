@@ -1,3 +1,5 @@
+import resume from "./assets/resume.pdf";
+
 export default function About() {
   return (
     <section id="profile">
@@ -13,13 +15,10 @@ export default function About() {
           Vehicles, Robotics
         </p>
         <div className="btn-container">
-          <button
-            className="btn btn-color-2"
-            onClick={() => {
-              window.open("./assets/resume-example.pdf");
-            }}
-          >
-            Download CV
+          <button className="btn btn-color-2">
+            <a href={resume} target="_blank" rel="noreferrer">
+              Download CV
+            </a>
           </button>
           <button className="btn btn-color-1" onClick={() => {}}>
             Contact Info

@@ -7,7 +7,7 @@ export default function Contact() {
         <div className="contact-info-container">
           <img
             src={require("./assets/email.png")}
-            alt="Email icon"
+            alt="email icon"
             className="icon contact-icon email-icon"
           />
           <p>
@@ -19,7 +19,7 @@ export default function Contact() {
         <div className="contact-info-container">
           <img
             src={require("./assets/linkedin.png")}
-            alt="LinkedIn icon"
+            alt="linkedIn icon"
             className="icon contact-icon"
           />
           <p>
@@ -34,8 +34,8 @@ export default function Contact() {
         </div>
         <div className="contact-info-container">
           <img
-            src={require("./assets/linkedin.png")}
-            alt="LinkedIn icon"
+            src={require("./assets/phone.png")}
+            alt="phone icon"
             className="icon contact-icon"
           />
           <p>
@@ -44,12 +44,16 @@ export default function Contact() {
         </div>
         <div className="contact-info-container">
           <img
-            src={require("./assets/linkedin.png")}
-            alt="LinkedIn icon"
+            src={require("./assets/github.png")}
+            alt="linkedIn icon"
             className="icon contact-icon"
           />
           <p>
-            <a href="https://github.com/danielvadranapuUB" target="_blank">
+            <a
+              href="https://github.com/danielvadranapuUB"
+              target="_blank"
+              rel="noreferrer"
+            >
               github.com/danielvadranapuUB
             </a>
           </p>

@@ -35,34 +35,35 @@ export default function Profile() {
           </div>
           <div className="text-container">
             <p>
-              I am a versatile professional specializing in the intersection of
-              autonomous systems, artificial intelligence, and computer vision.
-              Currently engaged in cutting-edge projects, I am developing a
-              state-of-the-art Visual Question Answering (VQA) architecture that
-              employs advanced attention mechanisms, multi-modal fusion, and
-              adversarial training to achieve superior accuracy. Concurrently, I
-              am implementing NDT scan matcher for precise vehicle localization
-              and integrating EagleEye sensor platforms within the Autoware
-              project, aiming to enhance perception accuracy for autonomous
-              driving systems.
+              With over 4 years of professional experience, I currently serve as
+              a Research Assistant at Cavas Lab, specializing in integrating
+              Autoware software onto Lincoln vehicles to advance autonomous
+              driving. Previously, at Tata Insights and Quants, I excelled as an
+              Assistant Manager in video analytics, leading the development of
+              comprehensive solutions:
             </p>
             <p>
-              With a solid foundation from my roles as Assistant Manager at Tata
-              Insights and Quants and Deep Learning Engineer at Flux Auto, I
-              have deployed robust systems like YOLOv8 for automatic number
-              plate recognition and developed novel architectures for object
-              detection and segmentation using single backbone networks. My
-              academic pursuits have further enriched my skills, particularly in
-              enhancing image generation through Latent Diffusion models and
-              optimizing path planning algorithms such as RRT and A* for
-              autonomous navigation in simulation environments.
+              I pioneered the implementation of high-accuracy Automatic Number
+              Plate Recognition (ANPR) systems, significantly enhancing vehicle
+              tracking and reducing unauthorized access incidents. Utilizing
+              advanced perception algorithms and YOLOv8 models, I strengthened
+              workplace safety by accurately identifying individuals wearing
+              protective equipment and optimized operational workflows with
+              efficient two-stage detection pipelines.
             </p>
             <p>
-              Proficient in Python and C++, I leverage frameworks like PyTorch,
-              TensorFlow, and OpenCV to innovate and optimize solutions. I
-              thrive in dynamic environments where my expertise in machine
-              learning, deep learning, and autonomous systems drives impactful
-              advancements.
+              Furthermore, I applied synthetic data generation techniques to
+              improve ANPR accuracy and detect littering incidents on roadways.
+              I also played a pivotal role in mentoring interns, nurturing their
+              skills in computer vision and fostering innovative solutions.
+            </p>
+            <p>
+              At Flux Auto, I specialized as a Deep Learning Engineer, driving
+              cutting-edge research in Convolutional Neural Networks (CNNs) for
+              object detection and segmentation. I successfully integrated AI
+              algorithms into autonomous systems, ensuring optimal performance
+              across diverse hardware platforms and conducting rigorous
+              performance evaluations to enhance model efficiency.
             </p>
           </div>
         </div>
