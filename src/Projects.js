@@ -1,6 +1,5 @@
 import vqa from "./assets/vqa.jpeg";
 import localization from "./assets/localisation.png";
-import trajectory from "./assets/trajectory_prediction.png";
 import endToEnd from "./assets/end_to_end_llm.png";
 import txtToImg from "./assets/txt_to_img.png";
 

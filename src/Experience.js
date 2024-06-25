@@ -1,10 +1,11 @@
 import tcs from "./assets/tcs.jpeg";
 import fluxauto from "./assets/fluxauto_logo.jpeg";
+import cavasLab from "./assets/cavas-lab.png";
 
 export default function Experience() {
   const experiences = [
     {
-      logoLocation: tcs,
+      logoLocation: cavasLab,
       companyName: "Cavas Lab",
       role: "Teaching Assistant",
       timeLine: "August 2023 - Present",
