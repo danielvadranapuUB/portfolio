@@ -43,11 +43,13 @@ export default function ChatBot() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: inputMessage })
+        body: JSON.stringify({ message: inputMessage }),
+        // Add timeout for mobile
+        signal: AbortSignal.timeout(10000) // 10 second timeout
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
@@ -62,13 +64,21 @@ export default function ChatBot() {
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
-      const errorMessage = {
+      let errorMessage = "Sorry, I'm having trouble connecting to the server. Please try again.";
+      
+      if (error.name === 'AbortError') {
+        errorMessage = "Request timed out. Please check your connection and try again.";
+      } else if (error.message.includes('Failed to fetch')) {
+        errorMessage = "Cannot connect to server. Please check your internet connection.";
+      }
+      
+      const errorBotMessage = {
         id: Date.now() + 1,
-        text: "Sorry, I'm having trouble connecting to the server. Please make sure the backend is running on port 3001.",
+        text: errorMessage,
         sender: "bot",
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages(prev => [...prev, errorBotMessage]);
     } finally {
       setIsLoading(false);
     }

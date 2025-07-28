@@ -4,8 +4,14 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
-app.use(cors());
+// Enhanced CORS for mobile compatibility
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://danielvadranapuUB.github.io', 'https://danielvadranapuub.github.io'],
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // Portfolio Knowledge Base with full resume data
