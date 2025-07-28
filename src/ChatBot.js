@@ -38,7 +38,6 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      // Use direct connection for both desktop and mobile
       console.log('Attempting to connect to server...');
       
       // Safari-specific headers and options
@@ -47,32 +46,91 @@ export default function ChatBot() {
       // Check if we're on localhost (local development) or deployed
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
-      // Use different URLs for local vs deployed
-      const baseUrl = isLocalhost ? 'http://16.16.31.170:3001' : 'https://corsproxy.io/?http://16.16.31.170:3001';
+      // Try multiple approaches for deployed version
+      let response;
+      let success = false;
       
-      const fetchOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          // Safari-specific headers
-          ...(isSafari && {
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          })
-        },
-        body: JSON.stringify({ message: inputMessage }),
-        // Add timeout for mobile
-        signal: AbortSignal.timeout(15000) // 15 second timeout
-      };
-
-      const response = await fetch(`${baseUrl}/api/chat`, fetchOptions);
-
-      console.log('Response received:', response.status);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (isLocalhost) {
+        // Local development - direct connection
+        console.log('Using direct connection for localhost');
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({ message: inputMessage }),
+          signal: AbortSignal.timeout(15000)
+        };
+        
+        response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
+        success = response.ok;
+      } else {
+        // Deployed version - try multiple CORS proxies
+        const corsProxies = [
+          'https://api.allorigins.win/raw?url=',
+          'https://corsproxy.io/?',
+          'https://cors-anywhere.herokuapp.com/'
+        ];
+        
+        for (let i = 0; i < corsProxies.length; i++) {
+          try {
+            console.log(`Trying CORS proxy ${i + 1}: ${corsProxies[i]}`);
+            
+            const fetchOptions = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                ...(isSafari && {
+                  'Cache-Control': 'no-cache',
+                  'Pragma': 'no-cache'
+                })
+              },
+              body: JSON.stringify({ message: inputMessage }),
+              signal: AbortSignal.timeout(10000)
+            };
+            
+            response = await fetch(`${corsProxies[i]}http://16.16.31.170:3001/api/chat`, fetchOptions);
+            
+            if (response.ok) {
+              success = true;
+              console.log(`Success with proxy ${i + 1}`);
+              break;
+            }
+          } catch (proxyError) {
+            console.log(`Proxy ${i + 1} failed:`, proxyError.message);
+            continue;
+          }
+        }
+        
+        // If all proxies fail, try direct connection as last resort
+        if (!success) {
+          try {
+            console.log('Trying direct connection as fallback');
+            const fetchOptions = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+              body: JSON.stringify({ message: inputMessage }),
+              signal: AbortSignal.timeout(8000)
+            };
+            
+            response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
+            success = response.ok;
+          } catch (directError) {
+            console.log('Direct connection also failed:', directError.message);
+          }
+        }
       }
 
+      if (!success) {
+        throw new Error('All connection attempts failed');
+      }
+
+      console.log('Response received:', response.status);
       const data = await response.json();
       console.log('Data received:', data);
       
@@ -94,7 +152,9 @@ export default function ChatBot() {
       } else if (error.message.includes('Failed to fetch')) {
         errorMessage = "Cannot connect to server. Please check your internet connection.";
       } else if (error.message.includes('NetworkError')) {
-        errorMessage = "Network error. This might be a Safari compatibility issue. Try Chrome or Firefox.";
+        errorMessage = "Network error. This might be a browser compatibility issue.";
+      } else if (error.message.includes('All connection attempts failed')) {
+        errorMessage = "All connection methods failed. The server might be down or there's a network issue.";
       }
       
       const errorBotMessage = {
