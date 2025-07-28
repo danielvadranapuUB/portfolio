@@ -38,7 +38,11 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://16.16.31.170:3001/api/chat', {
+      // Use CORS proxy for mobile compatibility
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const baseUrl = isMobile ? 'https://cors-anywhere.herokuapp.com/http://16.16.31.170:3001' : 'http://16.16.31.170:3001';
+      
+      const response = await fetch(`${baseUrl}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,6 +68,35 @@ export default function ChatBot() {
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error('Error sending message:', error);
+      
+      // Try fallback for mobile if CORS proxy fails
+      if (error.message.includes('Failed to fetch') || error.name === 'AbortError') {
+        try {
+          const fallbackResponse = await fetch('http://16.16.31.170:3001/api/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: inputMessage }),
+            signal: AbortSignal.timeout(5000)
+          });
+          
+          if (fallbackResponse.ok) {
+            const fallbackData = await fallbackResponse.json();
+            const botMessage = {
+              id: Date.now() + 1,
+              text: fallbackData.response,
+              sender: "bot",
+              timestamp: new Date()
+            };
+            setMessages(prev => [...prev, botMessage]);
+            return;
+          }
+        } catch (fallbackError) {
+          console.error('Fallback also failed:', fallbackError);
+        }
+      }
+      
       let errorMessage = "Sorry, I'm having trouble connecting to the server. Please try again.";
       
       if (error.name === 'AbortError') {
