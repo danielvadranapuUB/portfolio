@@ -46,7 +46,6 @@ export default function ChatBot() {
       // Check if we're on localhost (local development) or deployed
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
       
-      // Try multiple approaches for deployed version
       let response;
       let success = false;
       
@@ -66,62 +65,62 @@ export default function ChatBot() {
         response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
         success = response.ok;
       } else {
-        // Deployed version - try multiple CORS proxies
-        const corsProxies = [
-          'https://api.allorigins.win/raw?url=',
-          'https://corsproxy.io/?',
-          'https://cors-anywhere.herokuapp.com/'
-        ];
+        // Deployed version - try different approaches
+        console.log('Using deployed connection strategy');
         
-        for (let i = 0; i < corsProxies.length; i++) {
+        // Try direct connection first (some browsers might allow it)
+        try {
+          console.log('Trying direct connection first...');
+          const fetchOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              ...(isSafari && {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+              })
+            },
+            body: JSON.stringify({ message: inputMessage }),
+            signal: AbortSignal.timeout(10000)
+          };
+          
+          response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
+          if (response.ok) {
+            success = true;
+            console.log('Direct connection succeeded!');
+          }
+        } catch (directError) {
+          console.log('Direct connection failed:', directError.message);
+        }
+        
+        // If direct connection fails, try a different approach
+        if (!success) {
           try {
-            console.log(`Trying CORS proxy ${i + 1}: ${corsProxies[i]}`);
-            
+            console.log('Trying alternative connection method...');
+            // Use a different approach - maybe the issue is with the specific endpoint
             const fetchOptions = {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Origin': window.location.origin,
                 ...(isSafari && {
                   'Cache-Control': 'no-cache',
                   'Pragma': 'no-cache'
                 })
               },
               body: JSON.stringify({ message: inputMessage }),
-              signal: AbortSignal.timeout(10000)
-            };
-            
-            response = await fetch(`${corsProxies[i]}http://16.16.31.170:3001/api/chat`, fetchOptions);
-            
-            if (response.ok) {
-              success = true;
-              console.log(`Success with proxy ${i + 1}`);
-              break;
-            }
-          } catch (proxyError) {
-            console.log(`Proxy ${i + 1} failed:`, proxyError.message);
-            continue;
-          }
-        }
-        
-        // If all proxies fail, try direct connection as last resort
-        if (!success) {
-          try {
-            console.log('Trying direct connection as fallback');
-            const fetchOptions = {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-              },
-              body: JSON.stringify({ message: inputMessage }),
-              signal: AbortSignal.timeout(8000)
+              signal: AbortSignal.timeout(12000)
             };
             
             response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
-            success = response.ok;
-          } catch (directError) {
-            console.log('Direct connection also failed:', directError.message);
+            if (response.ok) {
+              success = true;
+              console.log('Alternative connection succeeded!');
+            }
+          } catch (altError) {
+            console.log('Alternative connection failed:', altError.message);
           }
         }
       }
