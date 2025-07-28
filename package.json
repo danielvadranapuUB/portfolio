@@ -25,7 +25,8 @@
     "deploy": "gh-pages -d build",
     "server": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm start\"",
-    "backend": "node server.js"
+    "backend": "node server.js",
+    "build:backend": "npm install"
   },
   "eslintConfig": {
     "extends": [
