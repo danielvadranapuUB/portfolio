@@ -89,6 +89,7 @@ export default function ChatBot() {
           {isOpen ? "×" : "💬"}
         </div>
         <div className="chat-pulse"></div>
+        <div className="notification-dot"></div>
       </div>
 
       {/* Chat Window */}
