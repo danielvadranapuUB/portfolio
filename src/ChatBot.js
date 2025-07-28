@@ -38,9 +38,9 @@ export default function ChatBot() {
     setIsLoading(true);
 
     try {
-      // Use CORS proxy for mobile compatibility
+      // Use different CORS proxy for mobile compatibility
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const baseUrl = isMobile ? 'https://cors-anywhere.herokuapp.com/http://16.16.31.170:3001' : 'http://16.16.31.170:3001';
+      const baseUrl = isMobile ? 'https://api.allorigins.win/raw?url=http://16.16.31.170:3001' : 'http://16.16.31.170:3001';
       
       const response = await fetch(`${baseUrl}/api/chat`, {
         method: 'POST',
@@ -49,7 +49,7 @@ export default function ChatBot() {
         },
         body: JSON.stringify({ message: inputMessage }),
         // Add timeout for mobile
-        signal: AbortSignal.timeout(10000) // 10 second timeout
+        signal: AbortSignal.timeout(15000) // 15 second timeout
       });
 
       if (!response.ok) {
@@ -72,6 +72,7 @@ export default function ChatBot() {
       // Try fallback for mobile if CORS proxy fails
       if (error.message.includes('Failed to fetch') || error.name === 'AbortError') {
         try {
+          // Try direct connection first
           const fallbackResponse = await fetch('http://16.16.31.170:3001/api/chat', {
             method: 'POST',
             headers: {
@@ -94,6 +95,32 @@ export default function ChatBot() {
           }
         } catch (fallbackError) {
           console.error('Fallback also failed:', fallbackError);
+          
+          // Try one more fallback with a different proxy
+          try {
+            const secondFallbackResponse = await fetch('https://corsproxy.io/?http://16.16.31.170:3001/api/chat', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ message: inputMessage }),
+              signal: AbortSignal.timeout(8000)
+            });
+            
+            if (secondFallbackResponse.ok) {
+              const secondFallbackData = await secondFallbackResponse.json();
+              const botMessage = {
+                id: Date.now() + 1,
+                text: secondFallbackData.response,
+                sender: "bot",
+                timestamp: new Date()
+              };
+              setMessages(prev => [...prev, botMessage]);
+              return;
+            }
+          } catch (secondFallbackError) {
+            console.error('Second fallback also failed:', secondFallbackError);
+          }
         }
       }
       
