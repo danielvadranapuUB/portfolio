@@ -1,106 +1,170 @@
-# Daniel Vadranapu - Portfolio with AI Assistant
+# Portfolio Website with AI Chatbot
 
-A modern portfolio website featuring an AI-powered chatbot assistant that can answer questions about Daniel's experience, skills, projects, and contact information.
+A modern portfolio website featuring an interactive AI chatbot powered by OpenAI GPT-3.5-turbo.
 
 ## Features
 
-- **AI Assistant Chatbot**: Interactive chatbot powered by GPT-3.5-turbo
-- **Professional Design**: Clean, modern UI with dark/light mode toggle
-- **Responsive Layout**: Works perfectly on desktop and mobile devices
-- **Real-time Chat**: Instant responses with typing indicators
-- **Contact Information**: Clickable links for email, LinkedIn, phone, and GitHub
+- **Interactive AI Chatbot**: Powered by OpenAI GPT-3.5-turbo
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Modern UI**: Clean, professional interface
+- **Real-time Chat**: Instant responses from the AI assistant
+- **Portfolio Information**: Detailed information about projects, skills, and experience
 
 ## Tech Stack
 
-### Frontend
-- React.js
-- CSS3 with animations
-- Responsive design
-
-### Backend
-- Node.js
-- Express.js
-- OpenAI GPT-3.5-turbo API
-- CORS enabled
+- **Frontend**: React.js, CSS3
+- **Backend**: Node.js, Express.js
+- **AI**: OpenAI GPT-3.5-turbo API
+- **Deployment**: GitHub Pages (Frontend), AWS EC2 (Backend)
 
 ## Local Development
 
-1. **Clone the repository**
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Setup
+1. Clone the repository:
    ```bash
    git clone https://github.com/danielvadranapuUB/portfolio.git
    cd portfolio
    ```
 
-2. **Install dependencies**
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. **Set up environment variables**
-   Create a `.env` file in the root directory:
+3. Create a `.env` file in the root directory:
    ```
    OPENAI_API_KEY=your_openai_api_key_here
-   PORT=3001
    ```
 
-4. **Start the development servers**
+4. Start the development server:
    ```bash
-   npm run dev
+   npm start
    ```
-   This will start both the frontend (port 3000) and backend (port 3001)
+
+5. In a separate terminal, start the backend server:
+   ```bash
+   node server.js
+   ```
+
+The application will be available at `http://localhost:3000`
 
 ## Deployment
 
-### Frontend (GitHub Pages)
-The frontend is automatically deployed to GitHub Pages at:
-https://danielvadranapuUB.github.io/portfolio/
+### Frontend Deployment (GitHub Pages)
 
-### Backend Deployment
-The backend needs to be deployed to a platform that supports Node.js. Recommended platforms:
+1. Build the project:
+   ```bash
+   npm run build
+   ```
 
-1. **Render** (Recommended - Free tier available)
-2. **Railway** (Free tier available)
-3. **Heroku** (Paid)
+2. Deploy to GitHub Pages:
+   ```bash
+   npm run deploy
+   ```
 
-#### Deploy to Render:
-1. Create account at [render.com](https://render.com)
+The site will be available at `https://danielvadranapuUB.github.io`
+
+### Backend Deployment (AWS EC2)
+
+1. **Launch an EC2 instance**:
+   - Choose Ubuntu Server 20.04 LTS
+   - Configure security group to allow port 3001
+   - Download your `.pem` key file
+
+2. **Connect to your instance**:
+   ```bash
+   ssh -i your-key.pem ubuntu@your-instance-ip
+   ```
+
+3. **Install Node.js**:
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+   sudo apt-get install -y nodejs
+   ```
+
+4. **Clone and setup the repository**:
+   ```bash
+   git clone https://github.com/danielvadranapuUB/portfolio.git
+   cd portfolio
+   npm install
+   ```
+
+5. **Create `.env` file**:
+   ```bash
+   nano .env
+   ```
+   Add your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+6. **Install PM2** (process manager):
+   ```bash
+   sudo npm install -g pm2
+   ```
+
+7. **Start the server with PM2**:
+   ```bash
+   pm2 start server.js --name "portfolio-backend"
+   pm2 startup
+   pm2 save
+   ```
+
+8. **Update the frontend** to point to your AWS IP:
+   - Edit `src/ChatBot.js`
+   - Change the fetch URL to: `http://your-aws-ip:3001/api/chat`
+   - Deploy the updated frontend
+
+### Alternative Backend Deployment Options
+
+#### Render
+1. Create a new Web Service
 2. Connect your GitHub repository
-3. Create a new Web Service
-4. Set build command: `npm install`
-5. Set start command: `npm run backend`
-6. Add environment variable: `OPENAI_API_KEY`
+3. Set build command: `npm run build:backend`
+4. Set start command: `npm run backend`
+5. Add environment variable: `OPENAI_API_KEY`
 
-## AI Assistant Features
+#### Railway
+1. Connect your GitHub repository
+2. Set the root directory to the project folder
+3. Add environment variable: `OPENAI_API_KEY`
+4. Deploy automatically
 
-The chatbot can answer questions about:
-- **Experience**: Work history at iDrive, Nexquared, University at Buffalo, etc.
-- **Skills**: Programming languages, frameworks, technologies
-- **Projects**: Academic and professional projects
-- **Contact Information**: Email, LinkedIn, phone, GitHub
-- **Education**: Degrees and institutions
+#### Heroku
+1. Install Heroku CLI
+2. Create a new app: `heroku create your-app-name`
+3. Set environment variable: `heroku config:set OPENAI_API_KEY=your_key`
+4. Deploy: `git push heroku master`
 
 ## Project Structure
 
 ```
 portfolio/
+├── public/
 ├── src/
-│   ├── ChatBot.js          # AI Assistant component
+│   ├── ChatBot.js          # Main chatbot component
 │   ├── App.js              # Main app component
-│   └── index.css           # Styling with chat interface
-├── server.js               # Backend API server
-├── package.json            # Dependencies and scripts
-└── .env                    # Environment variables (not in repo)
+│   └── index.css           # Styles
+├── server.js               # Backend server
+├── package.json
+└── README.md
 ```
-
-## Environment Variables
-
-- `OPENAI_API_KEY`: Your OpenAI API key for GPT integration
-- `PORT`: Backend server port (default: 3001)
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests!
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the MIT License.
+
+---
+
+*Last updated: July 2024*
