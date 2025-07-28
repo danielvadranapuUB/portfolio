@@ -39,6 +39,7 @@ export default function ChatBot() {
 
     try {
       // Use direct connection for both desktop and mobile
+      console.log('Attempting to connect to server...');
       const response = await fetch('http://16.16.31.170:3001/api/chat', {
         method: 'POST',
         headers: {
@@ -49,11 +50,13 @@ export default function ChatBot() {
         signal: AbortSignal.timeout(15000) // 15 second timeout
       });
 
+      console.log('Response received:', response.status);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log('Data received:', data);
       
       const botMessage = {
         id: Date.now() + 1,
