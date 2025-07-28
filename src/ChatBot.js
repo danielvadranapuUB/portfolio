@@ -44,6 +44,12 @@ export default function ChatBot() {
       // Safari-specific headers and options
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
       
+      // Check if we're on localhost (local development) or deployed
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      
+      // Use different URLs for local vs deployed
+      const baseUrl = isLocalhost ? 'http://16.16.31.170:3001' : 'https://corsproxy.io/?http://16.16.31.170:3001';
+      
       const fetchOptions = {
         method: 'POST',
         headers: {
@@ -60,7 +66,7 @@ export default function ChatBot() {
         signal: AbortSignal.timeout(15000) // 15 second timeout
       };
 
-      const response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
+      const response = await fetch(`${baseUrl}/api/chat`, fetchOptions);
 
       console.log('Response received:', response.status);
       if (!response.ok) {
