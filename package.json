@@ -24,7 +24,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "server": "node server.js",
-    "dev": "concurrently \"npm run server\" \"npm start\""
+    "dev": "concurrently \"npm run server\" \"npm start\"",
+    "backend": "node server.js"
   },
   "eslintConfig": {
     "extends": [

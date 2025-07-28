@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+# Daniel Vadranapu - Portfolio with AI Assistant
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern portfolio website featuring an AI-powered chatbot assistant that can answer questions about Daniel's experience, skills, projects, and contact information.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **AI Assistant Chatbot**: Interactive chatbot powered by GPT-3.5-turbo
+- **Professional Design**: Clean, modern UI with dark/light mode toggle
+- **Responsive Layout**: Works perfectly on desktop and mobile devices
+- **Real-time Chat**: Instant responses with typing indicators
+- **Contact Information**: Clickable links for email, LinkedIn, phone, and GitHub
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- React.js
+- CSS3 with animations
+- Responsive design
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- Node.js
+- Express.js
+- OpenAI GPT-3.5-turbo API
+- CORS enabled
 
-### `npm test`
+## Local Development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/danielvadranapuUB/portfolio.git
+   cd portfolio
+   ```
 
-### `npm run build`
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   PORT=3001
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Start the development servers**
+   ```bash
+   npm run dev
+   ```
+   This will start both the frontend (port 3000) and backend (port 3001)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deployment
 
-### `npm run eject`
+### Frontend (GitHub Pages)
+The frontend is automatically deployed to GitHub Pages at:
+https://danielvadranapuUB.github.io/portfolio/
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Backend Deployment
+The backend needs to be deployed to a platform that supports Node.js. Recommended platforms:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Render** (Recommended - Free tier available)
+2. **Railway** (Free tier available)
+3. **Heroku** (Paid)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Deploy to Render:
+1. Create account at [render.com](https://render.com)
+2. Connect your GitHub repository
+3. Create a new Web Service
+4. Set build command: `npm install`
+5. Set start command: `npm run backend`
+6. Add environment variable: `OPENAI_API_KEY`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## AI Assistant Features
 
-## Learn More
+The chatbot can answer questions about:
+- **Experience**: Work history at iDrive, Nexquared, University at Buffalo, etc.
+- **Skills**: Programming languages, frameworks, technologies
+- **Projects**: Academic and professional projects
+- **Contact Information**: Email, LinkedIn, phone, GitHub
+- **Education**: Degrees and institutions
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+portfolio/
+├── src/
+│   ├── ChatBot.js          # AI Assistant component
+│   ├── App.js              # Main app component
+│   └── index.css           # Styling with chat interface
+├── server.js               # Backend API server
+├── package.json            # Dependencies and scripts
+└── .env                    # Environment variables (not in repo)
+```
 
-### Code Splitting
+## Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `OPENAI_API_KEY`: Your OpenAI API key for GPT integration
+- `PORT`: Backend server port (default: 3001)
 
-### Analyzing the Bundle Size
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Feel free to submit issues and enhancement requests!
 
-### Making a Progressive Web App
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is open source and available under the [MIT License](LICENSE).
