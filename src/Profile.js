@@ -14,8 +14,8 @@ export default function Profile() {
               />
               <h3>Experience</h3>
               <p>
-                4+ years <br />
-                Deep Learning Engineer
+                6+ years <br />
+                AI Engineer
               </p>
             </div>
             <div className="details-container">

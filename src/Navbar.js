@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Navbar() {
+export default function Navbar({ darkMode, onToggleDarkMode }) {
   return (
     <div>
       <nav id="desktop-nav">
@@ -21,6 +21,11 @@ export default function Navbar() {
             </li>
             <li>
               <a href="#contact">Contact</a>
+            </li>
+            <li>
+              <button className="theme-toggle-btn" onClick={onToggleDarkMode}>
+                {darkMode ? "☀️" : "🌙"}
+              </button>
             </li>
           </ul>
         </div>
@@ -56,6 +61,11 @@ export default function Navbar() {
             </li>
             <li>
               <a href="#contact">Contact</a>
+            </li>
+            <li>
+              <button className="theme-toggle-btn" onClick={onToggleDarkMode}>
+                {darkMode ? "☀️" : "🌙"}
+              </button>
             </li>
           </div>
         </div>

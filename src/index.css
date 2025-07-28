@@ -1,17 +1,175 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+html, body, #root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  max-width: 1440px;
-  margin: 0 auto;
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Section animations */
+section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card hover effects */
+.details-container,
+.color-container,
+.experience-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.details-container:hover,
+.color-container:hover,
+.experience-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.App.dark .details-container:hover,
+.App.dark .color-container:hover,
+.App.dark .experience-card:hover {
+  box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+}
+
+/* Skill bar animations */
+.skill-bar-fill {
+  animation: fillBar 1.5s ease-out forwards;
+}
+
+@keyframes fillBar {
+  from { width: 0; }
+  to { width: var(--fill-width); }
+}
+
+/* Navigation hover effects */
+.nav-links a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #61dafb;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.App.dark .nav-links a::after {
+  background-color: #8ecfff;
+}
+
+/* Button hover effects */
+.btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+/* Project card image hover */
+.project-img {
+  transition: transform 0.3s ease;
+}
+
+.project-img:hover {
+  transform: scale(1.05);
+}
+
+/* Company logo hover */
+.company-section img {
+  transition: transform 0.3s ease;
+}
+
+.company-section img:hover {
+  transform: scale(1.1);
+}
+
+/* Contact info hover */
+.contact-info-container {
+  transition: all 0.3s ease;
+}
+
+.contact-info-container:hover {
+  transform: translateX(5px);
+  background: rgba(97, 218, 251, 0.1);
+}
+
+.App.dark .contact-info-container:hover {
+  background: rgba(142, 207, 255, 0.1);
+}
+
+/* Scroll-triggered animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.App.dark, .App.dark html, .App.dark body, .App.dark #root {
+  background: #181a1b !important;
+}
+
+section, .section-container, .experience-details-container, .project-containers, .skills-bar-container {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 p {
@@ -29,7 +187,11 @@ a,
 
 nav {
   width: 100%;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
+
 nav,
 .nav-links {
   display: flex;
@@ -61,7 +223,10 @@ a:hover {
 }
 
 .logo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
   font-size: 2rem;
+  letter-spacing: -0.5px;
 }
 
 .logo:hover {
@@ -186,16 +351,27 @@ section {
 }
 
 .section__text__p1 {
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
   text-align: center;
 }
 
 .section__text__p2 {
+  font-family: "Inter", sans-serif;
   font-size: 1.75rem;
-  margin-bottom: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
 }
 
 .title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
   font-size: 3rem;
+  letter-spacing: -1px;
+  line-height: 1.2;
   text-align: center;
 }
 
@@ -211,6 +387,19 @@ section {
 .icon {
   cursor: pointer;
   height: 2rem;
+}
+
+#socials-container .icon {
+  filter: brightness(0) saturate(100%);
+  transition: transform 0.3s ease;
+}
+
+.App.dark #socials-container .icon {
+  filter: brightness(0) saturate(100%) invert(1);
+}
+
+#socials-container .icon:hover {
+  transform: scale(1.1);
 }
 
 /* BUTTONS */
@@ -359,17 +548,17 @@ section {
 }
 
 .experience-sub-title {
-  color: rgb(85, 85, 85);
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-size: 1.75rem;
-  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+  text-align: center;
 }
 
 .experience-details-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  overflow: ;
 }
 
 .article-container {
@@ -412,6 +601,7 @@ article .icon {
 .project-title {
   margin: 1rem;
   color: black;
+  text-align: center;
 }
 
 .project-btn {
@@ -458,18 +648,496 @@ article .icon {
   height: 2.5rem;
 }
 
-/* Skill SECTION */
-
-.skills-container {
+/* Innovative Skills Section */
+.skills-grid-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  margin-top: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
-.skill-img {
-  width: 80px;
-  height: 80px;
+.skill-category {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.App.dark .skill-category {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skill-category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.App.dark .skill-category:hover {
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+}
+
+.skill-category-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #61dafb;
+  text-align: center;
+}
+
+.App.dark .skill-category-title {
+  color: #8ecfff;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.skill-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+.skill-tag.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.App.dark .skill-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.App.dark .skill-tag:hover {
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Cool Theme Toggle Button */
+.theme-toggle-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+}
+
+.nav-links li:last-child {
+  margin-left: 0.5rem;
+}
+
+.nav-links {
+  gap: 1.5rem;
+  list-style: none;
+  font-size: 1.5rem;
+  align-items: center;
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.App.dark .theme-toggle-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+}
+
+.App.dark .theme-toggle-btn:hover {
+  box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+}
+
+/* Remove old dark mode toggle styles */
+.dark-mode-toggle {
+  display: none;
+}
+
+.App.dark {
+  background: #181a1b;
+  color: #f5f6fa;
+}
+
+.App.dark p,
+.App.dark .title,
+.App.dark .experience-sub-title {
+  color: #f5f6fa;
+}
+
+.App.dark a {
+  color: #8ecfff;
+}
+
+.App.dark .color-container {
+  background: #23272a;
+  border-color: #333;
+}
+
+.App.dark .project-title {
+  color: #f5f6fa;
+  text-align: center;
+}
+
+.App.dark .section__text__p1,
+.App.dark .section__text__p2 {
+  color: #b0b0b0;
+}
+
+.App.dark .section__text,
+.App.dark .section__text p,
+.App.dark .section__text__p1,
+.App.dark .section__text__p2,
+.App.dark .title,
+.App.dark .experience-sub-title,
+.App.dark .project-description,
+.App.dark .contact-info-container p,
+.App.dark .nav-links a,
+.App.dark .menu-links a {
+  color: #f5f6fa !important;
+}
+
+.App.dark .menu-links {
+  background-color: #23272a;
+}
+
+.App.dark .nav-links a:hover,
+.App.dark .menu-links a:hover {
+  color: #8ecfff !important;
+}
+
+.App.dark .color-container,
+.App.dark .details-container {
+  color: #f5f6fa !important;
+}
+
+.App.dark .about-containers,
+.App.dark .experience-card,
+.App.dark .contact-info-container {
+  color: #222 !important;
+}
+
+.App.dark .color-container *,
+.App.dark .details-container * {
+  color: #f5f6fa !important;
+  opacity: 1 !important;
+}
+
+.App.dark .about-containers *,
+.App.dark .experience-card *,
+.App.dark .contact-info-container * {
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+.App.dark #contact {
+  background: transparent !important;
+}
+
+.App.dark .contact-info-upper-container {
+  background: #fff !important;
+  color: #222 !important;
+}
+
+.App.dark .contact-info-upper-container *,
+.App.dark .contact-info-container * {
+  color: #222 !important;
+  opacity: 1 !important;
+}
+
+.App.dark #contact .title,
+.App.dark #contact .section__text__p1 {
+  color: #f5f6fa !important;
+}
+
+.App.dark,
+.App.dark body,
+.App.dark html {
+  background: #181a1b !important;
+}
+
+.company-initial {
+  width: 2rem;
+  height: 2rem;
+  background: #61dafb;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.App.dark .company-initial {
+  background: #8ecfff;
+  color: #181a1b;
+}
+
+.company-section a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.company-section a:hover {
+  color: #61dafb;
+}
+
+.App.dark .company-section a:hover {
+  color: #8ecfff;
+}
+
+/* AI-Themed Animations and Effects */
+@keyframes neuralPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes dataFlow {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes aiGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(97, 218, 251, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(97, 218, 251, 0.6); }
+}
+
+/* AI-themed background pattern */
+.App.dark::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(97, 218, 251, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(142, 207, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(97, 218, 251, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* AI-enhanced skill tags */
+.skill-tag {
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.skill-tag:hover::before {
+  left: 100%;
+}
+
+/* AI-themed section headers */
+.title::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #61dafb, #8ecfff);
+  margin: 0.5rem auto 0;
+  transition: width 0.8s ease;
+  animation: neuralPulse 3s ease-in-out infinite;
+}
+
+/* AI-enhanced cards */
+.details-container,
+.color-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.details-container::before,
+.color-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #61dafb, #8ecfff, #61dafb);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.details-container:hover::before,
+.color-container:hover::before {
+  transform: scaleX(1);
+}
+
+/* AI-themed navigation */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #61dafb, #8ecfff);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::before {
+  width: 100%;
+}
+
+/* AI-enhanced profile section */
+#profile {
+  position: relative;
+}
+
+#profile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 70%, rgba(97, 218, 251, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(142, 207, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* AI-themed button effects */
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(97, 218, 251, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* AI-themed scroll indicator */
+section {
+  position: relative;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(to top, #61dafb, #8ecfff);
+  transform: translateX(-50%);
+  animation: dataFlow 2s ease-in-out infinite;
+}
+
+/* AI-enhanced dark mode toggle */
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.theme-toggle-btn:hover::before {
+  transform: translateX(100%);
+}
+
+/* Intro Text Animations */
+.intro-text {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.intro-text.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure smooth transitions for intro elements */
+.section__text .intro-text {
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add a subtle fade-in effect for the profile image */
+.section__pic-container img {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInScale 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @media screen and (max-width: 1600px) {

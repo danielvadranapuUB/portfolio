@@ -1,51 +1,63 @@
 import tcs from "./assets/tcs.jpeg";
 import fluxauto from "./assets/fluxauto_logo.jpeg";
 import cavasLab from "./assets/cavas-lab.png";
+import idrive from "./assets/IDrive.jpeg";
 
 export default function Experience() {
   const experiences = [
     {
-      logoLocation: cavasLab,
-      companyName: "Cavas Lab",
-      role: "Teaching Assistant",
-      timeLine: "August 2023 - Present",
-      location: "New York, US",
-      tools: "",
+      logoLocation: idrive,
+      companyName: "IDrive (2025–Present)",
+      role: "AI Engineer",
+      timeLine: "Los Angeles, CA",
+      website: "https://www.idrive.com/",
       highlights: [
-        "Integrated Autoware with Lincoln's drive-by-wire system to enable vehicle control through advanced software integration.",
-        "Constructed a detailed 3D map of the campus using Lio-SAM, enhancing spatial awareness and navigation capabilities.",
-        "Developed a custom sensor kit within Autoware tailored specifically for the Lincoln vehicle.",
+        "Collaborating on mimicking Comma.ai's perception and planning stack using vision-based lane detection models integrated with LLM-based driver assistance.",
+        "Developing real-time pipelines for camera-based drivable area segmentation and object detection, optimizing performance for in-vehicle deployment.",
+      ],
+    },
+    {
+      logoLocation: null,
+      companyName: "Nexquared (2024–Present)",
+      role: "AI Engineer",
+      timeLine: "Los Angeles, CA",
+      website: "https://app.nexquared.com/",
+      highlights: [
+        "Launched job-matching platform using LLMs to extract skills, visa, and clearance data, processing 10,000+ job postings per day.",
+        "Built multi-threaded metadata extractor using Ollama on consumer GPUs with PostgreSQL backend and React/Next.js frontend.",
+      ],
+    },
+    {
+      logoLocation: cavasLab,
+      companyName: "University at Buffalo (2023–2024)",
+      role: "Research Assistant",
+      timeLine: "New York, US",
+      website: "https://ubwp.buffalo.edu/cavas/",
+      highlights: [
+        "Designed deep cross-attention frameworks for VQA achieving 7% improvement in answer accuracy.",
+        "Integrated LiDAR and GPS data into Autoware pipeline, increasing vehicle localization precision by 12%.",
       ],
     },
     {
       logoLocation: tcs,
-      companyName: "Tata Insights and Quants",
-      role: "Assistant Manager Analyst",
-      timeLine: "June 2021 - August 2023",
-      location: "Bangalore, India",
-      tools: "Python, C++, PyTorch, TensorFlow, OpenCV, Docker, Kafka",
+      companyName: "Tata Insights and Quants (2021–2023)",
+      role: "Assistant Manager - Deep Learning",
+      timeLine: "Bangalore, India",
+      website: "https://www.tataiq.com/",
       highlights: [
-        "Strategic Project Management: Led cross-functional teams in the successful execution of multiple high-impact projects, ensuring alignment with strategic business objectives and timelines.",
-        "Client Engagement and Satisfaction: Played a key role in client interactions and project scoping, ensuring client expectations were met or exceeded. Received positive feedback for delivering innovative solutions and surpassing project goals.",
-        "Continuous Process Improvement: Initiated and implemented continuous improvement initiatives within the computer vision and AI teams, optimizing workflows.",
-        "Knowledge Sharing and Training: Developed and conducted training sessions on emerging technologies and best practices in computer vision and AI for internal teams, fostering a culture of continuous learning and upskilling.",
-        "Collaborative Innovation: Actively participated in cross-functional innovation sessions, contributing ideas and solutions that led to new product features and improved service offerings, driving company growth and market competitiveness.",
-        "Thought Leadership and Industry Contribution: Published articles or presented at industry conferences on topics related to computer vision, AI applications, or technological advancements, establishing thought leadership and enhancing company reputation in the industry.",
+        "Developed real-time license plate detection with 90% accuracy processing 20 vehicles/hour.",
+        "Launched YOLOv8 model achieving 98% accuracy in PPE detection, reducing safety violations significantly.",
       ],
     },
     {
       logoLocation: fluxauto,
-      companyName: "Flux Auto",
+      companyName: "Flux Auto (2019–2021)",
       role: "Deep Learning Engineer",
-      timeLine: "June 2019 - August 2021",
-      location: "Bangalore, India",
-      tools: "Python, C++, PyTorch, TensorFlow, OpenCV, ROS",
+      timeLine: "Bangalore, India",
+      website: "https://fluxauto.ai/",
       highlights: [
-        "Lead Research and Development Initiatives: Spearhead research and development projects focused on advancing computer vision and deep learning technologies for autonomous systems. Drive innovation in object detection, segmentation, and trajectory prediction to enhance the capabilities of autonomous vehicles.",
-        "Algorithm Design and Optimization: Design, optimize, and validate convolutional neural networks (CNNs) and other machine learning models for tasks such as object detection, segmentation, and real-time processing. Implement state-of-the-art algorithms and architectures to improve accuracy, efficiency, and robustness in challenging environments.",
-        "System Integration and Deployment: Integrate computer vision algorithms and models into autonomous driving systems, ensuring compatibility and performance on hardware platforms like Jetson AGX and other edge devices. Collaborate with hardware engineers and software developers to optimize algorithms for real-time processing and low-latency applications.",
-        "Data Processing and Augmentation: Develop tools and pipelines for data preprocessing, augmentation, and annotation to enhance the quality and diversity of training datasets. Implement strategies for handling edge cases and rare scenarios to improve model generalization and reduce false positives in object detection.",
-        "Performance Evaluation and Optimization: Conduct thorough performance evaluations of deep learning models and frameworks using benchmark datasets and diverse hardware configurations. Identify bottlenecks, optimize algorithms, and implement acceleration techniques (e.g., TensorRT) to improve inference speed and efficiency.",
+        "Designed object detector ConvNet improving YOLOv3 MAP@75 by 38% on Berkeley Deep-Drive dataset.",
+        "Built novel architecture for simultaneous object detection and segmentation, reducing computational complexity by 50%.",
       ],
     },
   ];
@@ -53,7 +65,7 @@ export default function Experience() {
     <section id="experience">
       <p className="section__text__p1">Explore My</p>
       <h1 className="title">Experience</h1>
-      <div className="experience-details-container">
+      <div className="project-containers">
         {experiences.map((experience) => (
           <ExperienceCard
             experience={experience}
@@ -67,29 +79,34 @@ export default function Experience() {
 
 const ExperienceCard = ({ experience }) => {
   return (
-    <div className="experience-card">
-      <div>
-        <div className="company-section">
+    <div className="details-container color-container">
+      <div className="company-section">
+        {experience.logoLocation ? (
           <img
             src={experience.logoLocation}
             alt="Experience icon"
             className="icon"
           />
-          <p>{experience.companyName}</p>
-        </div>
-        <div>
-          <p>
-            {experience.role} · {experience.timeLine} · {experience.location}
-          </p>
-        </div>
-        <div>
-          <ul>
-            {experience.highlights.map((highlight, idx) => (
-              <li key={idx}> {highlight}</li>
-            ))}
-          </ul>
-        </div>
-        {experience.tools !== "" && <p>Tools: {experience.tools}</p>}
+        ) : (
+          <div className="company-initial">{experience.companyName.split(' ')[0][0]}</div>
+        )}
+        <p>
+          <a href={experience.website} target="_blank" rel="noopener noreferrer">
+            {experience.companyName}
+          </a>
+        </p>
+      </div>
+      <div>
+        <p>
+          {experience.role} · {experience.timeLine}
+        </p>
+      </div>
+      <div>
+        <ul>
+          {experience.highlights.map((highlight, idx) => (
+            <li key={idx}> {highlight}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

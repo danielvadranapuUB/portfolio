@@ -1,71 +1,44 @@
-import vqa from "./assets/vqa.jpeg";
-import localization from "./assets/localisation.png";
-import endToEnd from "./assets/end_to_end_llm.png";
-import txtToImg from "./assets/txt_to_img.png";
+import React from "react";
 
 export default function Projects() {
-  const academicProjects = [
+  const ongoingProjects = [
     {
-      title: "Text to Image Generation",
+      title: "Autonomous Vehicle Perception Stack",
       description:
-        "Enhanced Latent Diffusion model performance by training the text encoder on enriched contextual data, significantly improving Image generation. The enriched contextual data included diverse and extensive textual descriptions, enabling the model to better understand and translate textual prompts into visually coherent and detailed images.",
-      image: txtToImg,
-    },
-    {
-      title: "RRT and A* on simulator",
-      description:
-        "Implemented RRT and A* algorithms in simulation environments to optimize path planning and navigation for autonomous systems, demonstrating proficiency in algorithmic optimization and simulation-based testing.",
-      video:
-        "https://drive.google.com/file/d/1oxUDM8UprO2nKVV1DJ7-BrmjGDeCujXH/preview",
-    },
-    {
-      title: "Pure Pursuit and GAP Follow",
-      description:
-        "Applied Pure Pursuit and Gap Follow methods to enhance autonomous navigation in simulation environments, optimizing vehicle path-following and obstacle avoidance strategies for efficient and safe operation.",
-      video:
-        "https://drive.google.com/file/d/1xPp2XVfkn3WWUzmNuzND6GX644zcDpod/preview",
-    },
-    {
-      title: "AMCL Localization",
-      description:
-        "Implemented AMCL localization algorithm in simulation environments to accurately estimate the pose of autonomous vehicles, demonstrating proficiency in localization techniques essential for autonomous navigation and control.",
-      video:
-        "https://drive.google.com/file/d/1wwLzoo2q2bCaionZew_ch1TVYHkdVSvt/preview",
+        "Currently developing vision-based lane detection models integrated with LLM-based driver assistance. Building real-time pipelines for camera-based drivable area segmentation and object detection for autonomous driving applications.",
     },
   ];
 
-  const ongoingProjects = [
+  const academicProjects = [
     {
-      title: "Visual Question and Answer",
-      description:
-        "Developing a state-of-the-art VQA architecture focusing on advanced attention mechanisms, multi-modal fusion, adversarial training, and fine-grained evaluation metrics to significantly boost accuracy.",
-      image: vqa,
+      title: "Enhanced Latent Diffusion (GANs)",
+      description: "Enhanced Latent Diffusion model performance by training text encoder on enriched contextual data, significantly improving image generation quality and reducing training time by 40%.",
     },
     {
-      title: "Localisation",
-      description:
-        "Implementing NDT scan matcher for precise vehicle localization and integrating EagleEye sensor platform to enhance perception accuracy in ongoing development of autonomous driving systems within the Autoware project.",
-      image: localization,
+      title: "Path Planning Algorithms",
+      description: "Developed and implemented RRT and A* algorithms for autonomous navigation, reducing path planning computation time by 25% and improving route efficiency in complex environments.",
     },
     {
-      title: "End to End Decision making of Autonomous vehicle using LLM",
-      description:
-        "Working on the integration of Large Language Models (LLMs) for state estimation in autonomous vehicles, enhancing perception accuracy and decision-making capabilities through advanced natural language processing and machine learning techniques.",
-      image: endToEnd,
+      title: "Gap Follow & Localization",
+      description: "Enhanced vehicle path-following strategies achieving 20% increase in navigation accuracy. Leveraged AMCL localization algorithm improving pose estimation accuracy by 30% in dynamic environments.",
+    },
+    {
+      title: "Multi-Modal VQA Framework",
+      description: "Designed deep cross-attention frameworks for visual question answering, achieving 7% improvement in answer accuracy through innovative attention mechanisms and data fusion techniques.",
     },
   ];
+
   return (
     <section id="projects">
-      <p className="section__text__p1">Browse My Recent</p>
+      <p className="section__text__p1">My Work</p>
       <h1 className="title">Projects</h1>
       <div className="experience-details-container">
-        <p className="section__text__p1">Ongoing Projects</p>
         <div className="project-containers">
           {ongoingProjects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
         </div>
-        <p className="section__text__p1">Academic Projects</p>
+        <p className="section__text__p1">Academic & Research Projects</p>
         <div className="project-containers">
           {academicProjects.map((project, index) => (
             <ProjectCard key={index} project={project} />
@@ -79,20 +52,6 @@ export default function Projects() {
 const ProjectCard = ({ project }) => {
   return (
     <div className="details-container color-container">
-      <div className="article-container">
-        {project.video ? (
-          <iframe
-            src={project.video}
-            type="video/quicktime"
-            allow="autoplay"
-            title="video"
-            allowFullScreen
-            className="project-img"
-          />
-        ) : (
-          <img src={project.image} alt="Project 1" className="project-img" />
-        )}
-      </div>
       <h2 className="experience-sub-title project-title">{project.title}</h2>
       <p className="project-description">{project.description}</p>
     </div>
