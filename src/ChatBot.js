@@ -65,64 +65,25 @@ export default function ChatBot() {
         response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
         success = response.ok;
       } else {
-        // Deployed version - try different approaches
-        console.log('Using deployed connection strategy');
+        // Deployed version - use HTTPS domain
+        console.log('Using HTTPS domain for deployed version');
         
-        // Try direct connection first (some browsers might allow it)
-        try {
-          console.log('Trying direct connection first...');
-          const fetchOptions = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              ...(isSafari && {
-                'Cache-Control': 'no-cache',
-                'Pragma': 'no-cache'
-              })
-            },
-            body: JSON.stringify({ message: inputMessage }),
-            signal: AbortSignal.timeout(10000)
-          };
-          
-          response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
-          if (response.ok) {
-            success = true;
-            console.log('Direct connection succeeded!');
-          }
-        } catch (directError) {
-          console.log('Direct connection failed:', directError.message);
-        }
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            ...(isSafari && {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            })
+          },
+          body: JSON.stringify({ message: inputMessage }),
+          signal: AbortSignal.timeout(15000)
+        };
         
-        // If direct connection fails, try a different approach
-        if (!success) {
-          try {
-            console.log('Trying alternative connection method...');
-            // Use a different approach - maybe the issue is with the specific endpoint
-            const fetchOptions = {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Origin': window.location.origin,
-                ...(isSafari && {
-                  'Cache-Control': 'no-cache',
-                  'Pragma': 'no-cache'
-                })
-              },
-              body: JSON.stringify({ message: inputMessage }),
-              signal: AbortSignal.timeout(12000)
-            };
-            
-            response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
-            if (response.ok) {
-              success = true;
-              console.log('Alternative connection succeeded!');
-            }
-          } catch (altError) {
-            console.log('Alternative connection failed:', altError.message);
-          }
-        }
+        response = await fetch('https://api.danielvadranapu.com/api/chat', fetchOptions);
+        success = response.ok;
       }
 
       if (!success) {
