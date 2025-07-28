@@ -5,6 +5,7 @@ import Experience from "./Experience";
 import Projects from "./Projects";
 import Skills from "./Skills";
 import Contact from "./Contact";
+import ChatBot from "./ChatBot";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -43,6 +44,7 @@ function App() {
       <Projects />
       <Skills />
       <Contact />
+      <ChatBot />
     </div>
   );
 }
