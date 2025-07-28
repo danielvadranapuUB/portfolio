@@ -82,7 +82,7 @@ export default function ChatBot() {
           signal: AbortSignal.timeout(15000)
         };
         
-        response = await fetch('https://api.danielvadranapu.com/api/chat', fetchOptions);
+        response = await fetch('https://api.danielvadarnapu.com/api/chat', fetchOptions);
         success = response.ok;
       }
 
