@@ -40,15 +40,27 @@ export default function ChatBot() {
     try {
       // Use direct connection for both desktop and mobile
       console.log('Attempting to connect to server...');
-      const response = await fetch('http://16.16.31.170:3001/api/chat', {
+      
+      // Safari-specific headers and options
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      const fetchOptions = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          // Safari-specific headers
+          ...(isSafari && {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          })
         },
         body: JSON.stringify({ message: inputMessage }),
         // Add timeout for mobile
         signal: AbortSignal.timeout(15000) // 15 second timeout
-      });
+      };
+
+      const response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
 
       console.log('Response received:', response.status);
       if (!response.ok) {
@@ -75,6 +87,8 @@ export default function ChatBot() {
         errorMessage = "Request timed out. Please check your connection and try again.";
       } else if (error.message.includes('Failed to fetch')) {
         errorMessage = "Cannot connect to server. Please check your internet connection.";
+      } else if (error.message.includes('NetworkError')) {
+        errorMessage = "Network error. This might be a Safari compatibility issue. Try Chrome or Firefox.";
       }
       
       const errorBotMessage = {
