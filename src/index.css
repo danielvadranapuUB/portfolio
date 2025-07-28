@@ -1689,9 +1689,77 @@ section::after {
     height: 50px;
     bottom: 15px;
     right: 15px;
+    /* Reduce animation intensity on mobile */
+    animation: chatBounce 3s ease-in-out infinite;
   }
   
   .chat-icon {
     font-size: 20px;
+  }
+  
+  /* Reduce pulse animation on mobile for better performance */
+  .chat-pulse {
+    animation: pulse 3s ease-in-out infinite;
+  }
+  
+  /* Reduce glow effect on mobile */
+  .chat-toggle-btn::before {
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  
+  /* Smaller notification dot on mobile */
+  .notification-dot {
+    width: 10px;
+    height: 10px;
+    top: 3px;
+    right: 3px;
+  }
+  
+  /* Ensure proper touch targets */
+  .maximize-btn, .close-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  /* Better mobile input */
+  .chat-input textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 10px 14px;
+  }
+  
+  /* Ensure messages are readable on mobile */
+  .message-content {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+/* Additional mobile fixes for very small screens */
+@media screen and (max-width: 480px) {
+  .chat-toggle-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .chat-icon {
+    font-size: 18px;
+  }
+  
+  .chat-window {
+    width: calc(100vw - 20px);
+    height: calc(100vh - 100px);
+    bottom: 70px;
+    right: 10px;
+    left: 10px;
+  }
+  
+  .chat-window.maximized {
+    width: calc(100vw - 10px);
+    height: calc(100vh - 50px);
+    bottom: 25px;
+    right: 5px;
+    left: 5px;
   }
 }

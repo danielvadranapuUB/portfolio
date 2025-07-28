@@ -81,10 +81,24 @@ export default function ChatBot() {
     }
   };
 
+  // Add touch event handling for mobile
+  const handleTouchStart = (e) => {
+    e.preventDefault();
+  };
+
+  const handleTouchEnd = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       {/* Chat Toggle Button */}
-      <div className="chat-toggle-btn" onClick={() => setIsOpen(!isOpen)}>
+      <div 
+        className="chat-toggle-btn" 
+        onClick={() => setIsOpen(!isOpen)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="chat-icon">
           {isOpen ? "×" : "💬"}
         </div>
@@ -102,12 +116,16 @@ export default function ChatBot() {
                 className="maximize-btn"
                 onClick={() => setIsMaximized(!isMaximized)}
                 title={isMaximized ? "Minimize" : "Maximize"}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
               >
                 {isMaximized ? "🗗" : "⛶"}
               </button>
               <button 
                 className="close-btn"
                 onClick={() => setIsOpen(false)}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
               >
                 ×
               </button>
