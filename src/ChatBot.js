@@ -39,9 +39,12 @@ export default function ChatBot() {
 
     try {
       console.log('Attempting to connect to server...');
+      console.log('User Agent:', navigator.userAgent);
+      console.log('Is Mobile:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
       
       // Safari-specific headers and options
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       
       // Check if we're on localhost (local development) or deployed
       const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -65,7 +68,7 @@ export default function ChatBot() {
         response = await fetch('http://16.16.31.170:3001/api/chat', fetchOptions);
         success = response.ok;
       } else {
-        // Deployed version - use HTTPS domain
+        // Deployed version - use HTTPS domain with mobile fallbacks
         console.log('Using HTTPS domain for deployed version');
         
         const fetchOptions = {
@@ -76,14 +79,48 @@ export default function ChatBot() {
             ...(isSafari && {
               'Cache-Control': 'no-cache',
               'Pragma': 'no-cache'
+            }),
+            ...(isMobile && {
+              'User-Agent': navigator.userAgent
             })
           },
           body: JSON.stringify({ message: inputMessage }),
-          signal: AbortSignal.timeout(15000)
+          signal: AbortSignal.timeout(20000) // Increased timeout for mobile
         };
         
-        response = await fetch('https://api.danielvadarnapu.com/api/chat', fetchOptions);
-        success = response.ok;
+        try {
+          response = await fetch('https://api.danielvadarnapu.com/api/chat', fetchOptions);
+          success = response.ok;
+          console.log('Primary connection successful:', response.status);
+        } catch (primaryError) {
+          console.log('Primary connection failed:', primaryError.message);
+          
+          // Mobile fallback: try with different headers
+          if (isMobile) {
+            console.log('Trying mobile fallback...');
+            const fallbackOptions = {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Cache-Control': 'no-cache'
+              },
+              body: JSON.stringify({ message: inputMessage }),
+              signal: AbortSignal.timeout(15000)
+            };
+            
+            try {
+              response = await fetch('https://api.danielvadarnapu.com/api/chat', fallbackOptions);
+              success = response.ok;
+              console.log('Fallback connection successful:', response.status);
+            } catch (fallbackError) {
+              console.log('Fallback connection failed:', fallbackError.message);
+              throw fallbackError;
+            }
+          } else {
+            throw primaryError;
+          }
+        }
       }
 
       if (!success) {
@@ -138,11 +175,11 @@ export default function ChatBot() {
 
   // Add touch event handling for mobile
   const handleTouchStart = (e) => {
-    e.preventDefault();
+    // Don't prevent default - let the click work
   };
 
   const handleTouchEnd = (e) => {
-    e.preventDefault();
+    // Don't prevent default - let the click work
   };
 
   return (
@@ -167,6 +204,20 @@ export default function ChatBot() {
           <div className="chat-header">
             <h3>AI Assistant</h3>
             <div className="chat-controls">
+              <button 
+                className="clear-btn"
+                onClick={() => setMessages([{
+                  id: Date.now(),
+                  text: "Hi! I'm Daniel's AI assistant. Ask me anything about his experience, projects, or skills!",
+                  sender: "bot",
+                  timestamp: new Date()
+                }])}
+                title="Clear Chat History"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                🗑️
+              </button>
               <button 
                 className="maximize-btn"
                 onClick={() => setIsMaximized(!isMaximized)}
@@ -234,6 +285,8 @@ export default function ChatBot() {
               onClick={handleSendMessage}
               disabled={isLoading || !inputMessage.trim()}
               className="send-btn"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
               <span>→</span>
             </button>

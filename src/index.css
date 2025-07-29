@@ -1799,16 +1799,16 @@ section::after {
   }
   
   .chat-toggle-btn {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    right: 15px;
+    width: 65px;
+    height: 65px;
+    bottom: 20px;
+    right: 20px;
     /* Reduce animation intensity on mobile */
     animation: chatBounce 3s ease-in-out infinite;
   }
   
   .chat-icon {
-    font-size: 20px;
+    font-size: 24px;
   }
   
   /* Reduce pulse animation on mobile for better performance */
@@ -1825,40 +1825,51 @@ section::after {
   .notification-dot {
     width: 10px;
     height: 10px;
-    top: 3px;
-    right: 3px;
+    top: 8px;
+    right: 8px;
   }
   
-  /* Ensure proper touch targets */
+  /* Larger buttons for mobile touch */
   .maximize-btn, .close-btn {
-    min-width: 44px;
-    min-height: 44px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
   }
   
-  /* Better mobile input */
+  /* Mobile-friendly textarea */
   .chat-input textarea {
     font-size: 16px; /* Prevents zoom on iOS */
-    padding: 10px 14px;
+    padding: 12px;
   }
   
-  /* Ensure messages are readable on mobile */
+  /* Mobile-friendly message content */
   .message-content {
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  /* Mobile-friendly send button */
+  .send-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    /* Ensure it's touch-friendly */
+    min-height: 44px;
+    min-width: 44px;
   }
 }
 
 /* Additional mobile fixes for very small screens */
 @media screen and (max-width: 480px) {
   .chat-toggle-btn {
-    width: 45px;
-    height: 45px;
-    bottom: 10px;
-    right: 10px;
+    width: 70px;
+    height: 70px;
+    bottom: 15px;
+    right: 15px;
   }
   
   .chat-icon {
-    font-size: 18px;
+    font-size: 26px;
   }
   
   .chat-window {
@@ -1875,5 +1886,320 @@ section::after {
     bottom: 25px;
     right: 5px;
     left: 5px;
+  }
+  
+  /* Even larger send button for small screens */
+  .send-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 22px;
+  }
+}
+
+/* Enhanced section separation and project cards */
+section {
+  padding: 40px 20px;
+  box-sizing: border-box;
+  min-height: fit-content;
+  position: relative;
+  margin: 20px 0;
+}
+
+/* Add visual separators between sections */
+section:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+  border-radius: 1px;
+}
+
+/* Enhanced project cards */
+.color-container {
+  border-color: #667eea;
+  background: rgb(250, 250, 250);
+  border-width: 2px;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.color-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.color-container:hover::before {
+  transform: scaleX(1);
+}
+
+.color-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.25);
+  border-color: #764ba2;
+}
+
+/* Enhanced experience cards */
+.experience-card {
+  display: flex;
+  justify-content: left;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 2px solid #667eea;
+  background: white;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+.experience-card:hover::before {
+  transform: scaleY(1);
+}
+
+.experience-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  border-color: #764ba2;
+}
+
+/* Enhanced about containers */
+.details-container {
+  padding: 2rem;
+  flex: 1;
+  background: white;
+  border-radius: 15px;
+  border: 2px solid #667eea;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.details-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.details-container:hover::before {
+  transform: scaleX(1);
+}
+
+.details-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+  border-color: #764ba2;
+}
+
+/* Enhanced section titles */
+.title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  text-align: center;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+/* Enhanced contact section */
+.contact-info-upper-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 15px;
+  border: 2px solid #667eea;
+  background: rgb(250, 250, 250);
+  margin: 2rem auto;
+  padding: 1rem;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contact-info-upper-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  border-color: #764ba2;
+}
+
+/* Dark mode enhancements */
+.App.dark .color-container {
+  background: #23272a;
+  border-color: #8ecfff;
+  box-shadow: 0 8px 25px rgba(142, 207, 255, 0.15);
+}
+
+.App.dark .color-container:hover {
+  box-shadow: 0 15px 35px rgba(142, 207, 255, 0.25);
+  border-color: #61dafb;
+}
+
+.App.dark .experience-card {
+  background: #2a2a2a;
+  border-color: #8ecfff;
+  box-shadow: 0 6px 20px rgba(142, 207, 255, 0.1);
+}
+
+.App.dark .experience-card:hover {
+  box-shadow: 0 10px 30px rgba(142, 207, 255, 0.2);
+  border-color: #61dafb;
+}
+
+.App.dark .details-container {
+  background: #2a2a2a;
+  border-color: #8ecfff;
+  box-shadow: 0 6px 20px rgba(142, 207, 255, 0.1);
+}
+
+.App.dark .details-container:hover {
+  box-shadow: 0 12px 30px rgba(142, 207, 255, 0.2);
+  border-color: #61dafb;
+}
+
+.App.dark .contact-info-upper-container {
+  background: #2a2a2a;
+  border-color: #8ecfff;
+  box-shadow: 0 6px 20px rgba(142, 207, 255, 0.1);
+}
+
+.App.dark .contact-info-upper-container:hover {
+  box-shadow: 0 10px 30px rgba(142, 207, 255, 0.2);
+  border-color: #61dafb;
+}
+
+.App.dark section:not(:last-child)::after {
+  background: linear-gradient(90deg, transparent, #8ecfff, transparent);
+}
+
+/* Mobile-specific card positioning */
+@media screen and (max-width: 768px) {
+  /* Move project cards slightly left */
+  .project-containers {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  
+  .color-container {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  /* Move experience cards slightly left */
+  .experience-card {
+    margin-left: -5px;
+    margin-right: 5px;
+  }
+  
+  /* Adjust about containers for mobile */
+  .about-containers {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  
+  .details-container {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  /* Adjust section padding for mobile */
+  section {
+    padding: 30px 15px;
+  }
+  
+  /* Adjust article containers for mobile */
+  .article-container {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  
+  article {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+/* Even more left positioning for smaller screens */
+@media screen and (max-width: 480px) {
+  .project-containers {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  
+  .color-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .experience-card {
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+  
+  .about-containers {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  
+  .details-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  section {
+    padding: 25px 10px;
+  }
+  
+  .article-container {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  
+  article {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }

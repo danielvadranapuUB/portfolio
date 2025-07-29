@@ -1,8 +1,29 @@
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Function to log user questions
+const logUserQuestion = (question, timestamp) => {
+  try {
+    const logEntry = {
+      question: question,
+      timestamp: timestamp,
+      date: new Date().toISOString()
+    };
+    
+    const logFile = path.join(__dirname, 'user_questions.log');
+    const logLine = JSON.stringify(logEntry) + '\n';
+    
+    fs.appendFileSync(logFile, logLine);
+    console.log('Question logged:', question.substring(0, 50) + '...');
+  } catch (error) {
+    console.error('Error logging question:', error);
+  }
+};
 
 // Enhanced CORS for mobile compatibility
 app.use(cors({
@@ -436,6 +457,9 @@ app.post('/api/chat', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
     }
+
+    // Log the user's question
+    logUserQuestion(message, new Date().toISOString());
     
     // Generate response using GPT or fallback
     const response = await generateGPTResponse(message);
@@ -458,6 +482,47 @@ app.get('/api/health', (req, res) => {
     message: 'Chat API is running',
     gpt_available: !!(process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key_here')
   });
+});
+
+// Endpoint to view saved questions (for admin purposes)
+app.get('/api/questions', (req, res) => {
+  try {
+    const logFile = path.join(__dirname, 'user_questions.log');
+    
+    if (!fs.existsSync(logFile)) {
+      return res.json({ 
+        questions: [], 
+        total: 0,
+        message: 'No questions logged yet' 
+      });
+    }
+    
+    const fileContent = fs.readFileSync(logFile, 'utf8');
+    const lines = fileContent.trim().split('\n').filter(line => line.trim());
+    
+    const questions = lines.map(line => {
+      try {
+        return JSON.parse(line);
+      } catch (e) {
+        return null;
+      }
+    }).filter(q => q !== null);
+    
+    // Get analytics
+    const totalQuestions = questions.length;
+    const today = new Date().toISOString().split('T')[0];
+    const todayQuestions = questions.filter(q => q.date.startsWith(today)).length;
+    
+    res.json({
+      questions: questions.slice(-50), // Last 50 questions
+      total: totalQuestions,
+      today: todayQuestions,
+      message: `Total questions: ${totalQuestions}, Today: ${todayQuestions}`
+    });
+  } catch (error) {
+    console.error('Error reading questions:', error);
+    res.status(500).json({ error: 'Failed to read questions' });
+  }
 });
 
 app.listen(PORT, () => {
